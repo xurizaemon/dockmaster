@@ -1,0 +1,29 @@
+{
+  "name": "dockmaster",
+  "version": "0.0.1",
+  "description": "Master the subtle ways of logging your time.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/xurizaemon/dockmaster.git"
+  },
+  "keywords": [],
+  "author": "Chris Burgess",
+  "engines": {
+    "node": ">=0.12.0"
+  },
+  "license": "MIT",
+  "readmeFilename": "README.md",
+  "dependencies": {
+    "http": "^0.0.0",
+    "minutedock": "^0.1.1"
+  },
+  "devDependencies": {
+    "grunt": "^0.4.5",
+    "grunt-contrib-jshint": "^0.11.3",
+    "grunt-contrib-watch": "^0.6.1"
+  }
+}
