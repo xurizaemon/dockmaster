@@ -29,20 +29,18 @@
       console.log(projects, 'projects');
     });
 
-    var fromTs = Date.now() - 60*60*24;
-
-    md.entries.search({users: [config.user_id], from: fromTs}, function(err, entries) {
+    var from = '2015-10-08 12:00:00';
+    md.entries.search({users: [config.user_id], from: from}, function(err, entries) {
       if (err) {
         console.error(template('Could not load entries for user ${userId}!', {userId: config.user_id}));
         process.exit(1);
       }
-      console.log(entries, 'entries from ' + fromTs);
+      console.log(entries, 'entries from ' + from);
     });
 
   } catch (e) {
     console.log('Unable to load config: ' + configPath);
     console.log(e);
   }
-
 
 }());
