@@ -1,35 +1,48 @@
-'use strict';
+(function () {
+  'use strict';
 
-process.on('uncaughtException', function(err){
-  console.error('uncaughtException: ' + err.message);
-  console.error(err.stack);
-  process.exit(1);
-});
-
-
-var http = require('http'),
-    Minutedock = require('minutedock');
-
-var template = require('es6-template-strings');
-
-var accountId = 1545,
-    userId = 1891,
-    apiKey = '8ec460b3b51560c8ba29420d3b11d181';
-
-var md = new Minutedock(apiKey);
-
-md.projects.all(accountId, function (err, projects) {
-  if (err) {
-    console.error(template('Could not load projects for account ${accountId}!', {accountId: accountId}));
+  process.on('uncaughtException', function(err){
+    console.error('uncaughtException: ' + err.message);
+    console.error(err.stack);
     process.exit(1);
-  }
-  console.log(projects);
-});
+  });
 
-md.entries.search({users: userId, from: }, function(err, entries) {
-  if (err) {
-    console.error(template('Could not load entries for user ${userId}!', {userId: userId}));
-    process.exit(1);
+  var http = require('http'),
+      Minutedock = require('minutedock'),
+      template = require('es6-template-strings'),
+      yaml = require('js-yaml'),
+      fs = require('fs');
+
+  var configPath = './config.yml';
+
+  try {
+    var config = yaml.safeLoad(fs.readFileSync(configPath, 'utf8'));
+    console.log(config);
+
+    var md = new Minutedock(config.api_key);
+
+    md.projects.all(config.account_id, function (err, projects) {
+      if (err) {
+        console.error(template('Could not load projects for account ${accountId}!', {accountId: config.account_id}));
+        process.exit(1);
+      }
+      console.log(projects, 'projects');
+    });
+
+    var fromTs = Date.now() - 60*60*24;
+
+    md.entries.search({users: [config.user_id], from: fromTs}, function(err, entries) {
+      if (err) {
+        console.error(template('Could not load entries for user ${userId}!', {userId: config.user_id}));
+        process.exit(1);
+      }
+      console.log(entries, 'entries from ' + fromTs);
+    });
+
+  } catch (e) {
+    console.log('Unable to load config: ' + configPath);
+    console.log(e);
   }
-  console.log(entries);
-});
+
+
+}());
