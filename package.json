@@ -1,5 +1,5 @@
 {
-  "name": "dockmaster",
+  "name": "hubot-dockmaster",
   "version": "0.0.1",
   "description": "Master the subtle ways of logging your time.",
   "main": "index.js",
