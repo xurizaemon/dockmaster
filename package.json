@@ -8,10 +8,12 @@
   },
   "repository": {
     "type": "git",
-    "url": "git://github.com/xurizaemon/dockmaster.git"
+    "url": "git://github.com/xurizaemon/hubot-dockmaster.git"
   },
   "keywords": [],
-  "author": "Chris Burgess",
+  "author": {
+    "name": "Chris Burgess"
+  },
   "engines": {
     "node": ">=0.12.0"
   },
